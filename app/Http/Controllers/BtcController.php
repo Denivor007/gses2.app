@@ -3,18 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Mail\SendRate;
-use App\Mail\Subscribe;
 use App\Service\EmailService;
 use App\Service\RateService;
-use GuzzleHttp\Client;
-use GuzzleHttp\Psr7\HttpFactory;
-use Illuminate\Http\Client\Response;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use Psr\Http\Client\ClientExceptionInterface;
-use function Symfony\Component\String\s;
 
 
 class BtcController extends Controller
@@ -38,9 +31,7 @@ class BtcController extends Controller
             'email' => 'required|unique_emails'
         ]);
 /*
- ********* Я не можу зрозуміти, як взагалі программа має видавати статус 200 при намаганні розіслати всім  *********
- ********* імейлам повідомлення, якщо вона навіть не гарантує, що імейл, записаний в "базу даних" є        *********
- ********* валідним? моїм рішенням наразі стало не порушувати контракт, і нічого не викидати в такому разі *********
+        Таке теж варто би перевірити! (але контракт порушувати не буду)
 
         $email_validator = Validator::make($request->all(), [
                 'email' => 'required|email'
